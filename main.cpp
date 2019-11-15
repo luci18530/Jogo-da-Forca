@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <cstdio>
 #include<string>
@@ -5,6 +6,13 @@
 using std::string;
 using std::getline;
 using namespace std;
+
+void clear (){
+  int c;
+  for (c=0;c<100;c++){
+    cout<< "\n";
+  }
+}
 
 void exibirboneco (int qtderros){
 
@@ -76,32 +84,45 @@ void exibirboneco (int qtderros){
   cout << "\n_________________\n\n";
 }
 
-void exibirjogo (string frase, char letraescolhida, int tam){
+void exibirjogo (string frase, char letraescolhida, int tam, int frasebyte[tam], bool *fail){
   int n;
-  
+  *fail = true;
 
   for (n = 0;n < tam; n++){
-    if (letraescolhida != frase[n]){
-    cout << "-";
+      if (letraescolhida == frase[n] && frasebyte[n] != true){
+        frasebyte[n] = true;
+        *fail = false;
+        
+      }
+
+    }
+
+  for (n = 0;n < tam; n++){
+    if (frasebyte[n] == true) {
+      cout << frase[n];
     }
 
     else {
-      cout << letraescolhida;
-      
+      cout << "-";
     }
+  }
+
   }
 
   
 
-}
+
 
 int main() {
+   sair:
   int opcini;
   int tam;
   int n;
   int opcpalavra;
   int qtderros = 0;
-  int limerros = 6;
+  int qtdacertos = 0;
+  int limerros = 5;
+  bool fail = false;
   string frase;
   string dica;
   
@@ -109,6 +130,8 @@ int main() {
 
   cout << "BEM VINDO AO JOGO DA FORCA\n--------------------------\nDigite a opção:\n" << "1- Jogar\n2- Sair\n";
 
+  while (opcini != 2){
+   
   cin >> opcini;
 
   if (opcini == 1){
@@ -135,6 +158,14 @@ int main() {
     }
   }
 
+  int frasebyte[tam];
+  // falsear toda a frasebyte
+
+  for (n = 0; n < tam; n++){
+    frasebyte[n] = false;
+  } 
+
+
   string tentativa[tam];
 
   for (n = 0; n < tam; n++){
@@ -142,15 +173,64 @@ int main() {
   }
 
   while (1){
-    exibirboneco(qtderros);
-    exibirjogo(frase, letraescolhida, tam);
     
+    
+    exibirjogo(frase, letraescolhida, tam, frasebyte, &fail);
+    // NÃO É UM BUG É UM RECURSO
+    if (fail == true){
+      qtderros++;
+    }
+
+
+    
+
+    exibirboneco(qtderros);
     cout << "\nEscolha uma letra : ";
     cin >> letraescolhida;
-    qtderros++;
+    
+    clear();
+
+    qtdacertos = 0;
+    for (n=0;n<tam;n++){
+      if (frasebyte[n] == true){
+        qtdacertos++;
+      }
+    }
+
+    if (qtdacertos == tam){
+      cout << "---------------\n";
+      cout << "Você Ganhou !!!\n";
+      cout << "---------------\n";
+      cout << "Presione qualqer tecla para voltar ao inicio";
+      cin.ignore();
+      cin.get();
+      clear();
+      goto sair;
+    }
+
+    cout << "\n\n" << qtdacertos;
+    cout <<"\n" << tam;
+    
+    if (qtderros > limerros){
+      cout << "---------------\n";
+      cout << "Você Perdeu !!!\n";
+      cout << "---------------\n";
+      cout << "Presione qualqer tecla para voltar ao inicio";
+      cin.ignore();
+      cin.get();
+      clear();
+      goto sair;
+    }
+
   }
+
+
   }
+
+
   if (opcini == 2){
-    cout << "Tchau";
+    clear();
+    cout << "Obrigado por jogar, tenha um bom dia !!";
   }
+}
 }
