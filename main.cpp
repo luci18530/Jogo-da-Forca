@@ -6,7 +6,77 @@ using std::string;
 using std::getline;
 using namespace std;
 
-void exibirjogo (string frase){
+void exibirboneco (int qtderros){
+
+  cout << "\n_________________\n\n";
+
+  if (qtderros == 0){
+    cout << "|-----    " << "\n"; 
+    cout << "|         " << "\n";
+    cout << "|         " << "\n";
+    cout << "|         " << "\n";
+    cout << "|         " << "\n";
+    cout << "|         " << "\n";
+  }
+
+  if (qtderros == 1){
+    cout << "|-----    " << "\n"; 
+    cout << "|    O    " << "\n";
+    cout << "|         " << "\n";
+    cout << "|         " << "\n";
+    cout << "|         " << "\n";
+    cout << "|         " << "\n";
+  }
+
+  if (qtderros == 2){
+    cout << "|-----    " << "\n"; 
+    cout << "|    O    " << "\n";
+    cout << "|    |    " << "\n";
+    cout << "|         " << "\n";
+    cout << "|         " << "\n";
+    cout << "|         " << "\n";
+  }
+
+  if (qtderros == 3){
+    cout << "|-----    " << "\n"; 
+    cout << "|    O    " << "\n";
+    cout << "|    |\\   " << "\n";
+    cout << "|         " << "\n";
+    cout << "|         " << "\n";
+    cout << "|         " << "\n";
+  }
+
+  if (qtderros == 4){
+    cout << "|-----    " << "\n"; 
+    cout << "|    O    " << "\n";
+    cout << "|   /|\\   " << "\n";
+    cout << "|         " << "\n";
+    cout << "|         " << "\n";
+    cout << "|         " << "\n";
+  }
+
+  if (qtderros == 5){
+    cout << "|-----    " << "\n"; 
+    cout << "|    O    " << "\n";
+    cout << "|   /|\\   " << "\n";
+    cout << "|     \\    " << "\n";
+    cout << "|         " << "\n";
+    cout << "|         " << "\n";
+  }
+
+  if (qtderros == 6){
+    cout << "|-----    " << "\n"; 
+    cout << "|    O    " << "\n";
+    cout << "|   /|\\   " << "\n";
+    cout << "|   / \\    " << "\n";
+    cout << "|         " << "\n";
+    cout << "|         " << "\n";
+  }
+
+  cout << "\n_________________\n\n";
+}
+
+void exibirjogo (string frase, char letraescolhida){
   int n;
   int tam;
   for (n = 0; n<64; n++){
@@ -16,14 +86,29 @@ void exibirjogo (string frase){
     }
   }
 
+  for (n = 0;n < tam; n++){
+    if (letraescolhida != frase[n]){
+    cout << "-";
+    }
+
+    else {
+      cout << letraescolhida;
+      
+    }
+  }
+
   
+
 }
 
 int main() {
   int opcini;
+  
   int opcpalavra;
+  int qtderros = 0;
   string frase;
   string dica;
+  char letraescolhida = '0'; 
 
   cout << "BEM VINDO AO JOGO DA FORCA\n--------------------------\nDigite a opção:\n" << "1- Jogar\n2- Sair\n";
 
@@ -45,8 +130,14 @@ int main() {
     if (opcpalavra == 9){frase = "REALISTA"; dica = "Adjetivo";}
     if (opcpalavra == 10){frase = "MORREU"; dica = "Verbo";}
 
-    exibirjogo(frase);
+  while (1){
+    exibirboneco(qtderros);
+    exibirjogo(frase, letraescolhida);
     
+    cout << "\nEscolha uma letra : ";
+    cin >> letraescolhida;
+    qtderros++;
+  }
   }
   if (opcini == 2){
     cout << "Tchau";
