@@ -84,9 +84,13 @@ void exibirboneco (int qtderros){
   cout << "\n_________________\n\n";
 }
 
-void exibirjogo (string frase, char letraescolhida, int tam, int frasebyte[tam], bool *fail){
+void exibirjogo (string frase, string dica, char letraescolhida, int tam, int frasebyte[tam], bool *fail, bool *win){
   int n;
+  int qtdacertos=0;
   *fail = true;
+
+  cout << "Dica: " << dica << "\n\n";
+  cout << "Palavra: ";
 
   for (n = 0;n < tam; n++){
       if (letraescolhida == frase[n] && frasebyte[n] != true){
@@ -107,6 +111,20 @@ void exibirjogo (string frase, char letraescolhida, int tam, int frasebyte[tam],
     }
   }
 
+  
+
+    for (n=0;n<tam;n++){
+      if (frasebyte[n] == true){
+        qtdacertos++;
+      }
+    }
+
+   
+
+    if (qtdacertos >= tam){
+      *win = true;
+    }
+
   }
 
   
@@ -123,21 +141,22 @@ int main() {
   int qtdacertos = 0;
   int limerros = 5;
   bool fail = false;
+  bool win = false;
   string frase;
   string dica;
   
   char letraescolhida = '0'; 
 
-  cout << "BEM VINDO AO JOGO DA FORCA\n--------------------------\nDigite a opção:\n" << "1- Jogar\n2- Sair\n";
-
+  cout << "BEM VINDO AO JOGO DA FORCA\n--------------------------\nDigite a opção:\n" << "1- Jogar\n2- Sair\n--------------------------\nSua escolha: ";
+  
   while (opcini != 2){
    
   cin >> opcini;
-
+  clear();
   if (opcini == 1){
     cout << "Selecione um numero de 1 a 10, cada numero é uma palavra diferente\nSua escolha: ";
     cin >> opcpalavra;
-    cout << "\n";
+    clear();
 
     if (opcpalavra == 1){frase = "CARRO"; dica = "Veiculo";}
     if (opcpalavra == 2){frase = "BANANA"; dica = "Alimento";}
@@ -173,31 +192,17 @@ int main() {
   }
 
   while (1){
-    
-    
-    exibirjogo(frase, letraescolhida, tam, frasebyte, &fail);
+ 
+    exibirjogo(frase, dica, letraescolhida, tam, frasebyte, &fail, &win);
     // NÃO É UM BUG É UM RECURSO
     if (fail == true){
       qtderros++;
     }
 
-
-    
-
     exibirboneco(qtderros);
-    cout << "\nEscolha uma letra : ";
-    cin >> letraescolhida;
-    
-    clear();
 
-    qtdacertos = 0;
-    for (n=0;n<tam;n++){
-      if (frasebyte[n] == true){
-        qtdacertos++;
-      }
-    }
-
-    if (qtdacertos == tam){
+    // VITORIA
+    if (win == true){
       cout << "---------------\n";
       cout << "Você Ganhou !!!\n";
       cout << "---------------\n";
@@ -208,9 +213,7 @@ int main() {
       goto sair;
     }
 
-    cout << "\n\n" << qtdacertos;
-    cout <<"\n" << tam;
-    
+    // DERROTA
     if (qtderros > limerros){
       cout << "---------------\n";
       cout << "Você Perdeu !!!\n";
@@ -222,6 +225,10 @@ int main() {
       goto sair;
     }
 
+    cout << "\nEscolha uma letra (MAIÚSCULA) : ";
+    cin >> letraescolhida;
+    
+    clear();
   }
 
 
