@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <cstdio>
 #include<string>
@@ -111,25 +110,17 @@ void exibirjogo (string frase, string dica, char letraescolhida, int tam, int fr
     }
   }
 
-  
-
     for (n=0;n<tam;n++){
       if (frasebyte[n] == true){
         qtdacertos++;
       }
     }
 
-   
-
     if (qtdacertos >= tam){
       *win = true;
     }
 
   }
-
-  
-
-
 
 int main() {
    sair:
@@ -154,6 +145,7 @@ int main() {
   cin >> opcini;
   clear();
   if (opcini == 1){
+    volta:
     cout << "Selecione um numero de 1 a 10, cada numero é uma palavra diferente\nSua escolha: ";
     cin >> opcpalavra;
     clear();
@@ -169,6 +161,15 @@ int main() {
     if (opcpalavra == 9){frase = "REALISTA"; dica = "Adjetivo";}
     if (opcpalavra == 10){frase = "MORREU"; dica = "Verbo";}
 
+    else {
+      cout << "Opção Indisponivel - ";
+      cout << "Presione qualqer tecla para voltar ao inicio\n";
+      cin.ignore();
+      cin.get();
+      clear();
+      goto volta;
+    }
+
   // STRLEN 
   for (n = 0; n<64; n++){
     if (frase[n] == '\0'){
@@ -179,14 +180,11 @@ int main() {
 
   int frasebyte[tam];
   // falsear toda a frasebyte
-
   for (n = 0; n < tam; n++){
     frasebyte[n] = false;
   } 
 
-
   string tentativa[tam];
-
   for (n = 0; n < tam; n++){
     tentativa[n] = " ";
   }
@@ -198,7 +196,6 @@ int main() {
     if (fail == true){
       qtderros++;
     }
-
     exibirboneco(qtderros);
 
     // VITORIA
@@ -230,10 +227,7 @@ int main() {
     
     clear();
   }
-
-
   }
-
 
   if (opcini == 2){
     clear();
