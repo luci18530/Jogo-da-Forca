@@ -76,15 +76,9 @@ void exibirboneco (int qtderros){
   cout << "\n_________________\n\n";
 }
 
-void exibirjogo (string frase, char letraescolhida){
+void exibirjogo (string frase, char letraescolhida, int tam){
   int n;
-  int tam;
-  for (n = 0; n<64; n++){
-    if (frase[n] == '\0'){
-      tam = n;
-      break;
-    }
-  }
+  
 
   for (n = 0;n < tam; n++){
     if (letraescolhida != frase[n]){
@@ -103,11 +97,14 @@ void exibirjogo (string frase, char letraescolhida){
 
 int main() {
   int opcini;
-  
+  int tam;
+  int n;
   int opcpalavra;
   int qtderros = 0;
+  int limerros = 6;
   string frase;
   string dica;
+  
   char letraescolhida = '0'; 
 
   cout << "BEM VINDO AO JOGO DA FORCA\n--------------------------\nDigite a opção:\n" << "1- Jogar\n2- Sair\n";
@@ -130,9 +127,23 @@ int main() {
     if (opcpalavra == 9){frase = "REALISTA"; dica = "Adjetivo";}
     if (opcpalavra == 10){frase = "MORREU"; dica = "Verbo";}
 
+  // STRLEN 
+  for (n = 0; n<64; n++){
+    if (frase[n] == '\0'){
+      tam = n;
+      break;
+    }
+  }
+
+  string tentativa[tam];
+
+  for (n = 0; n < tam; n++){
+    tentativa[n] = " ";
+  }
+
   while (1){
     exibirboneco(qtderros);
-    exibirjogo(frase, letraescolhida);
+    exibirjogo(frase, letraescolhida, tam);
     
     cout << "\nEscolha uma letra : ";
     cin >> letraescolhida;
