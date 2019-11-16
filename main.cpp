@@ -159,9 +159,9 @@ int main() {
     if (opcpalavra == 7){frase = "SIFILIS"; dica = "DST";}
     if (opcpalavra == 8){frase = "POTASSIO"; dica = "Elemento quimico";}
     if (opcpalavra == 9){frase = "REALISTA"; dica = "Adjetivo";}
-    if (opcpalavra == 10){frase = "MORREU"; dica = "Verbo";}
+    if (opcpalavra == 10){frase = "MORRER"; dica = "Verbo";}
 
-    else {
+    if (opcpalavra > 10) {
       cout << "Opção Indisponivel - ";
       cout << "Presione qualqer tecla para voltar ao inicio\n";
       cin.ignore();
